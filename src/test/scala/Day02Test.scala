@@ -8,4 +8,8 @@ class Day02Test extends AnyFunSuite{
         assert(Day02.part1(exampleInput) == "1985")
     }
 
+    test("Example Diamond = 5DB3") {
+        assert(Day02.part2(exampleInput) == "5DB3")
+    }
+
 }
