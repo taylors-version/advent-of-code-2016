@@ -4,8 +4,6 @@ object Day08:
     private val row: Regex = "rotate row.*".r
     private val column: Regex = "rotate column.*".r
 
-    case class Screen(values: IndexedSeq[IndexedSeq[Boolean]])
-
     def applyCommand(screen: Array[Array[Boolean]], command: String): Unit = {
         val foo = "bar"
         command match
@@ -30,7 +28,17 @@ object Day08:
     def part1(input: Seq[String]): Int = {
         val screen = Array.fill(6)(Array.fill(50)(false))
         input.foreach(applyCommand(screen, _))
+        part2(screen)
         screen.foldLeft(0)((sum, r) => sum + r.count(x => x))
+    }
+
+    def part2(screen: Array[Array[Boolean]]): Unit = {
+        screen.foreach(r => {
+            r.foreach(c => {
+                if c then print("#") else print(".")
+            })
+            println("")
+        })
     }
 
     def main(args: Array[String]): Unit = {
