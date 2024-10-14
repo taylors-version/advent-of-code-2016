@@ -33,4 +33,12 @@ class Day09Test extends AnyFunSuite{
         assert(actual.equals("X(3x3)ABC(3x3)ABCY"))
     }
 
+    test("'(3x3)XYZ' has length 9") {
+        assert(Day09.decompressV2String("(3x3)XYZ") == "XYZXYZXYZ".length)
+    }
+
+    test("'X(8x2)(3x3)ABCY' has length 20") {
+        assert(Day09.decompressV2String("X(8x2)(3x3)ABCY") == "XABCABCABCABCABCABCY".length)
+    }
+
 }
