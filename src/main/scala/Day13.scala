@@ -40,10 +40,29 @@ object Day13:
         start.copy(steps = Int.MaxValue)
     }
 
+    private def dijkstraMax50(start: State, number: Int): Seq[State] = {
+        val unvisitedStates = mutable.PriorityQueue[State](start)
+        val visitedStates = mutable.HashSet[State]()
+
+        while (unvisitedStates.nonEmpty) {
+            val currentState = unvisitedStates.dequeue()
+            visitedStates.add(currentState)
+            if (currentState.steps > 51) {
+                return visitedStates.filter(_.steps <= 50).toSeq
+            }
+            else
+                currentState.next.filter(_.valid(number)).filterNot(visitedStates.contains).foreach(s => {
+                    unvisitedStates.enqueue(s)
+                })
+        }
+        Seq.empty
+    }
+
     def part1(input: Int, target: Coord): Int = dijkstra(State(Coord(1,1), 0), target, input).steps
-
-
-
+    
+    def part2(input: Int): Int = dijkstraMax50(State(Coord(1,1), 0), input).size
+    
     def main(args: Array[String]): Unit = {
         println(part1(1358, Coord(31,39)))
+        println(part2(1358))
     }
