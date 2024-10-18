@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.collection.immutable.Seq
 
 object Day12:
@@ -28,6 +29,7 @@ object Day12:
             case _ => registers(regMap(input))
     }
 
+    @tailrec
     private def assembunnyRunner(instructions: Seq[String], instructionNo: Int = 0, registers: Seq[Int] = Seq(0,0,0,0)): Seq[Int] = {
         if instructionNo >= instructions.size then registers
         else
