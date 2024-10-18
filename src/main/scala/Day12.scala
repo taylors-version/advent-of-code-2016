@@ -44,8 +44,13 @@ object Day12:
         assembunnyRunner(input).head
     }
 
+    def part2(input: Seq[String]): Int = {
+        assembunnyRunner(input, 0, Seq(0,0,1,0)).head
+    }
+
 
     def main(args: Array[String]): Unit = {
         val data: Seq[String] = io.Source.fromResource("Day12.txt").getLines().toSeq
         println(part1(data))
+        println(part2(data))
     }
