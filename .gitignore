@@ -11,3 +11,4 @@ project/project/metals.sbt
 
 project/metals.sbt
 .idea
+.DS_Store
