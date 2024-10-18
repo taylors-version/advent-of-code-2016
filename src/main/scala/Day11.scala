@@ -52,8 +52,14 @@ object Day11:
         bfs(initialState)
     }
 
+    def part2(input: Seq[String]): Int = {
+        val initialState = parseInput(input)
+        bfs(initialState.copy(floors = initialState.floors.updated(0, initialState.floors.head + Floor(2, 2))))
+    }
+
 
     def main(args: Array[String]): Unit = {
         val data: Seq[String] = io.Source.fromResource("Day11.txt").getLines().toSeq
         println(part1(data))
+        println(part2(data))
     }
