@@ -9,7 +9,7 @@ object Day17:
         def valid: Boolean =
             x >= 0 && y >= 0 && x<=3 && y<=3 && validHash(md5(passcode + path.dropRight(1)), path.takeRight(1))
 
-        def next: Seq[Coord] = Seq(Coord(x - 1, y, passcode, path + "L"), Coord(x + 1, y, passcode, path + "R"), Coord(x, y - 1, passcode, path + "U"), Coord(x, y + 1, passcode, path + "D"))
+        def next: Seq[Coord] = if goal then Seq.empty else Seq(Coord(x - 1, y, passcode, path + "L"), Coord(x + 1, y, passcode, path + "R"), Coord(x, y - 1, passcode, path + "U"), Coord(x, y + 1, passcode, path + "D"))
         private def validHash(hash: String, direction: String): Boolean =
             val compareChar = direction match
                 case "U" => hash(0)
@@ -27,7 +27,7 @@ object Day17:
         }
     }
 
-    private def dijkstra(start: Coord): Coord = {
+    private def bfs(start: Coord): Coord = {
         val unvisitedStates = mutable.Queue[Coord](start)
         val visitedStates = collection.mutable.Map(start -> 0)
 
@@ -46,11 +46,33 @@ object Day17:
         start
     }
 
+    private def bfsPart2(start: Coord): Coord = {
+        val unvisitedStates = mutable.Queue[Coord](start)
+        val visitedStates = collection.mutable.Map(start -> 0)
+
+        while unvisitedStates.nonEmpty do
+            val currentState = unvisitedStates.dequeue()
+            val count = visitedStates(currentState) + 1
+            val next = currentState.next.filter(_.valid)
+            next.foreach { n =>
+                if !visitedStates.contains(n) || count < visitedStates(n) then
+                    visitedStates(n) = count
+                    unvisitedStates.enqueue(n)
+            }
+            
+        visitedStates.keys.filter(_.goal).toSeq.sortWith((a, b) => a.path.length.compareTo(b.path.length) < 0).last
+    }
+
 
     def part1(input: String): String = {
-        dijkstra(Coord(0, 0, input, "")).path
+        bfs(Coord(0, 0, input, "")).path
+    }
+
+    def part2(input: String): Int = {
+        bfsPart2(Coord(0, 0, input, "")).path.length
     }
 
     def main(args: Array[String]): Unit = {
         println(part1("awrkjxxr"))
+        println(part2("awrkjxxr"))
     }
