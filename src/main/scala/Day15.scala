@@ -26,7 +26,12 @@ object Day15:
         chineseRemainder(parseInput(input))
     }
 
+    def part2(input: Seq[String]): BigInt = {
+        chineseRemainder(parseInput(input):+Congruence(10-input.size,11))
+    }
+
     def main(args: Array[String]): Unit = {
         val data: Seq[String] = io.Source.fromResource("Day15.txt").getLines().toSeq
         println(part1(data))
+        println(part2(data))
     }
