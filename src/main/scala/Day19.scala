@@ -1,4 +1,5 @@
 import scala.annotation.tailrec
+import scala.collection.immutable.Seq
 
 object Day19:
 
@@ -10,10 +11,21 @@ object Day19:
             stealPresents(newChairs, chairs.length%2 != 0 ^ beginAtStart)
     }
 
+    @tailrec
+    private def stealPresentsOpposite(chairs: Int, i: Int = 1): Int = {
+        if i * 3 >= chairs then chairs -i else
+        stealPresentsOpposite(chairs, i*3)
+    }
+
     def part1(input: Int): Int = {
         stealPresents(1 to input)
     }
 
+    def part2(input: Int): Int = {
+        stealPresentsOpposite(input)
+    }
+
     def main(args: Array[String]): Unit = {
         println(part1(3012210))
+        println(part2(3012210))
     }
