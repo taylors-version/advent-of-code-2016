@@ -27,4 +27,5 @@ object Day16:
 
     def main(args: Array[String]): Unit = {
         println(part1("11100010111110100", 272))
+        println(part1("11100010111110100", 35651584))
     }
