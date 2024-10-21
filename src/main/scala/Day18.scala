@@ -11,11 +11,12 @@ object Day18:
             determineTraps(input :+ newRow, rows)
     }
 
-    def part1(input: String, rows: Int): Int = {
-        determineTraps(Seq(input), rows).foldLeft(0)((a, b) => a + b.count(_ == '.'))
+    def part1(input: String, rows: Int): Long = {
+        determineTraps(Seq(input), rows).foldLeft(0L)((a, b) => a + b.count(_ == '.'))
     }
 
     def main(args: Array[String]): Unit = {
         val data: String = io.Source.fromResource("Day18.txt").mkString
         println(part1(data, 40))
+        println(part1(data, 400000))// Yea I was lazy
     }
