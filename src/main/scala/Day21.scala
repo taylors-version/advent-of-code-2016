@@ -28,11 +28,21 @@ object Day21:
             scramble(newPassword, commands.tail)
     }
 
+    @tailrec
+    private def unscramble(permutations: Seq[String], password: String, input: Seq[String]): String = {
+        if scramble(permutations.head, input) == password then permutations.head else unscramble(permutations.tail, password, input)
+    }
+
     def part1(initial: String, input: Seq[String]): String = {
         scramble(initial, input)
+    }
+
+    def part2(password: String, input: Seq[String]): String = {
+        unscramble("abcdefgh".permutations.toSeq, password, input) //CPU go brr
     }
 
     def main(args: Array[String]): Unit = {
         val data: Seq[String] = io.Source.fromResource("Day21.txt").getLines().toSeq
         println(part1("abcdefgh", data))
+        println(part2("fbgdceah", data))
     }
